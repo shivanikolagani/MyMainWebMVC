@@ -3,8 +3,13 @@
 @{
     ViewData["Title"] = "DepartmentView";
 }
+<style>
+    button {
+        color: red;
+    }
+</style>
 
-<h1>Department</h1>
+<h1 style="color:darkcyan;font-family:Arial,sans-serif">~Department~</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -18,7 +23,10 @@
             <th>
                 @Html.DisplayNameFor(model => model.DeptName)
             </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Action)
+            </th>
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -31,11 +39,11 @@
                 @Html.DisplayFor(modelItem => item.DeptName)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new {  id=item.DeptId  }) |
-                @Html.ActionLink("Details", "Details", new {  id=item.DeptId  }) |
-                @Html.ActionLink("Delete", "Delete", new {  id=item.DeptId  })
+                <button style="background-color: magenta">@Html.ActionLink("Edit", "Edit", new { id=item.DeptId })</button> |
+                <button style="background-color: red">@Html.ActionLink("Delete", "Delete", new { id = item.DeptId })</button>
             </td>
+                
         </tr>
 }
-    </tbody>
+    </tbody> 
 </table>

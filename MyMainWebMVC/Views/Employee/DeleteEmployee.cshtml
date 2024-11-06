@@ -4,6 +4,7 @@
     ViewData["Title"] = "DeleteEmployee";
 }
 
+
 <h1>DeleteEmployee</h1>
 
 <h3>Are you sure you want to delete this?</h3>
@@ -25,7 +26,7 @@
         </dd>
     </dl>
     
-    <form asp-action="DeleteEmployee">
+    <form asp-action="DeleteConfirmed" asp-route-id="@Model.EmpId" method="post">
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>
     </form>

@@ -15,6 +15,7 @@ namespace MyMainWebMVC.Controllers
             _logger = logger;
         }
 
+
         public async Task<IActionResult> Index()
         {
             var empdepts = await GetEmpDeptsAsync();

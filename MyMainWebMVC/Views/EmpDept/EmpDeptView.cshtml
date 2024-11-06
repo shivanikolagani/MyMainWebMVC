@@ -4,7 +4,7 @@
     ViewData["Title"] = "EmpDeptView";
 }
 
-<h1>EmpDept</h1>
+<h1 style="color:darkcyan;font-family:Arial,sans-serif">~Report</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -18,7 +18,15 @@
             <th>
                 @Html.DisplayNameFor(model => model.EmpId)
             </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmpName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeptName)
+            </th>
+            <th>
+               
+            
         </tr>
     </thead>
     <tbody>
@@ -31,9 +39,13 @@
                 @Html.DisplayFor(modelItem => item.EmpId)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.DisplayFor(modelItem => item.EmpName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeptName)
+            </td>
+            <td>
+                
             </td>
         </tr>
 }

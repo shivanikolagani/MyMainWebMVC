@@ -163,36 +163,103 @@ namespace MyMainWebMVC.Controllers
 
 
 
-        //Delete Department
-
-        // DELETE Department by ID
+        [HttpGet]
+        [Route("Department/DeleteDepartment/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var isSuccess = await DeleteDepartmentAsync(id);
-
-            if (isSuccess)
+            var department = await GetDepartmentsAsync(id); // Retrieve the department by ID
+            if (department == null)
             {
-                return RedirectToAction("Index"); // Redirect to Index or success page
+                return NotFound("Department not found.");
             }
-            else
-            {
-                ModelState.AddModelError(string.Empty, "Failed to delete department.");
-                return RedirectToAction("Index");
-            }
+            return View("DeleteDepartment", department); // Pass the department to the Delete view for confirmation
         }
 
-        // Method to send DELETE request to the Web API
-        public async Task<bool> DeleteDepartmentAsync(int id)
+        [HttpPost, ActionName("DeleteConfirmed")]
+        [Route("Department/DeleteConfirmed/{id}")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var isSuccess = await DeleteDepartmentAsync(id);
+            if (isSuccess)
+            {
+                return RedirectToAction("Index"); // Redirect to Index if deletion is successful
+            }
+            ModelState.AddModelError(string.Empty, "Failed to delete department.");
+            return RedirectToAction("DeleteDepartment", new { id }); // Or return to delete view with the employee info
+        }
+
+        private async Task<bool> DeleteDepartmentAsync(int id)
         {
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("https://localhost:7053/");
+
+            client.BaseAddress = new Uri("https://localhost:7053/"); // Ensure this matches your API's base URL
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            HttpResponseMessage response = await client.DeleteAsync($"api/Departments/{id}");
+            HttpResponseMessage response = await client.DeleteAsync($"api/Departments/{id}"); // Send the DELETE request
+            return response.IsSuccessStatusCode; // Return true if successful
 
-            return response.IsSuccessStatusCode;
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        ////Delete Department
+
+        //// DELETE Department by ID
+        //public async Task<IActionResult> Delete(int id)
+        //{
+        //    var isSuccess = await DeleteDepartmentAsync(id);
+
+        //    if (isSuccess)
+        //    {
+        //        return RedirectToAction("Index"); // Redirect to Index or success page
+        //    }
+        //    else
+        //    {
+        //        ModelState.AddModelError(string.Empty, "Failed to delete department.");
+        //        return RedirectToAction("Index");
+        //    }
+        //}
+
+        //// Method to send DELETE request to the Web API
+        //public async Task<bool> DeleteDepartmentAsync(int id)
+        //{
+        //    HttpClient client = new HttpClient();
+        //    client.BaseAddress = new Uri("https://localhost:7053/");
+        //    client.DefaultRequestHeaders.Accept.Clear();
+        //    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+        //    HttpResponseMessage response = await client.DeleteAsync($"api/Departments/{id}");
+
+        //    return response.IsSuccessStatusCode;
+        //}
 
     }
 }

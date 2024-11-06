@@ -25,7 +25,7 @@
         </dd>
     </dl>
     
-    <form asp-action="DeleteDepartment">
+    <form asp-action="DeleteConfirmed" asp-route-id="@Model.DeptId" method="post">
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>
     </form>
